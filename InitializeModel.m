@@ -33,3 +33,5 @@ rain = [t sim_rain(:,1)]
 price = [t sim_price(:,1)]
 
 clear params x
+
+

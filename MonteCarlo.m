@@ -1,14 +1,24 @@
-model = Simulink.SimulationInput('HydroPowerSheet')
-t = rain(:,1)
+model(1) = Simulink.SimulationInput('HydroPowerSheet');
+model(1) = model(1).setVariable('maint1',maint1);
+model(1) = model(1).setVariable('maint2',maint2);
+
+t = rain(:,1);
 res = zeros(2, rounds);
 for n=1:rounds
-    disp(n)
-    model = model.setVariable('rain',[t sim_rain(:,n)]);
-    model = model.setVariable('price',[t sim_price(:,n)]);
+    disp(n);
+    model(n) = model(1).setVariable('rain',[t sim_rain(:,n)]);
+    model(n) = model(1).setVariable('price',[t sim_price(:,n)]);
     % Run simulink model and get last value
-    test = sim(model);
+    %test = sim(model(n),'ShowSimulationManager','on');
     % Save output data
-    res(1,n) = sum(test.yout{1}.Values.Data); %Flooded (minimize)
-    res(2,n) = sum(test.yout{2}.Values.Data); %Revenue (maximize)
+    %res(1,n) = sum(test.yout{1}.Values.Data); %Flooded (minimize)
+    %res(2,n) = sum(test.yout{2}.Values.Data); %Revenue (maximize)
 end
-res = res'
+test = parsim(model,'ShowSimulationManager','on');
+
+for n=1:rounds
+    res(1,n) = sum(test(n).yout{1}.Values.Data); %Flooded (minimize)
+    res(2,n) = sum(test(n).yout{2}.Values.Data); %Revenue (maximize)
+end
+
+res = res';
