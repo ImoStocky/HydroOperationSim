@@ -19,5 +19,5 @@ for k = 1:length(k_range)
         y = [y, a];
         params = [params; [k, sigma_range(i)]];
     end
-y = [[0:n-1]' y]
+y = [[0:n-1]' y];
 end
