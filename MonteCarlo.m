@@ -5,9 +5,9 @@ model(1) = model(1).setVariable('maint2',maint2);
 t = rain(:,1);
 res = zeros(2, rounds);
 for n=1:rounds
-    disp(n);
+    %disp(n);
     model(n) = model(1).setVariable('rain',[t sim_rain(:,n)]);
-    model(n) = model(1).setVariable('price',[t sim_price(:,n)]);
+    model(n) = model(n).setVariable('price',[t sim_price(:,n)]);
     % Run simulink model and get last value
     %test = sim(model(n),'ShowSimulationManager','on');
     % Save output data
