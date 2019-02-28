@@ -9,7 +9,7 @@ for n=1:rounds
     model(n) = model(1).setVariable('rain',[t sim_rain(:,n)]);
     model(n) = model(n).setVariable('price',[t sim_price(:,n)]);
     % Run simulink model and get last value
-    %test = sim(model(n),'ShowSimulationManager','on');
+    %test(n) = sim(model(n),'ShowSimulationManager','off');
     % Save output data
     %res(1,n) = sum(test.yout{1}.Values.Data); %Flooded (minimize)
     %res(2,n) = sum(test.yout{2}.Values.Data); %Revenue (maximize)
