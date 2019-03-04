@@ -1,5 +1,4 @@
 %CASH FLOW
-figure;
 histogram(res(:,2));
 set(gcf,'color','w');
 xlabel('Cash Flow, MEUR');
