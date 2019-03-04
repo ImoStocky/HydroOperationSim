@@ -1,4 +1,4 @@
-model(1) = Simulink.SimulationInput('HydroPowerSheet');
+model(1) = Simulink.SimulationInput('HydroPowerControl');
 model(1) = model(1).setVariable('maint1',maint1);
 model(1) = model(1).setVariable('maint2',maint2);
 

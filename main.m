@@ -26,4 +26,4 @@ sm=simdec(res(:,1),sc,color,legend,['Wasted']);
 
 %ylim([0 10]);
 %%
-%ExamplePlot()
+ExamplePlot()
