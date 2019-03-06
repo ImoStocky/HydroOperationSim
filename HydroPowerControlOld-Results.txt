@@ -1,0 +1,69 @@
+Results of static plan
+Mean Value
+   17.3250
+
+10%
+   14.9612
+
+90%
+   19.9148
+
+Results of dynamic plan
+With threshold
+     0
+Mean Value
+   17.3489
+
+10%
+   14.9607
+
+90%
+   20.0816
+
+Results of dynamic plan
+With threshold
+    0.5000
+Mean Value
+   17.3481
+
+10%
+   14.9513
+
+90%
+   20.0785
+
+Results of dynamic plan
+With threshold
+     1
+Mean Value
+   17.3481
+
+10%
+   14.9698
+
+90%
+   20.0208
+
+Results of dynamic plan
+With threshold
+    1.5000
+Mean Value
+   17.3415
+
+10%
+   14.9323
+    
+90%
+   19.9775
+
+Results of dynamic plan
+With threshold
+     2
+Mean Value
+   17.3396
+
+10%
+   14.9790
+
+90%
+   19.9571

@@ -1,5 +1,5 @@
 %CASH FLOW
-histogram(res(:,2));
+h=histogram(res(:,2),'BinEdges',11:0.5:23);
 set(gcf,'color','w');
 xlabel('Cash Flow, MEUR');
 ylabel('Observations, n');

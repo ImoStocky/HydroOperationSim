@@ -1,4 +1,6 @@
+clear all;
 InitializeModel()
+%rounds=100;
 
 mod_name = 'HydroPowerSheet';
 MonteCarlo()
@@ -8,20 +10,23 @@ hold on;
 ExamplePlot()
 res_static = res;
 
-%rounds=100;
+mod_name = 'HydroPowerControl';
 
 res_th={};
-ths=0:2:6;
+ths=0:0.5:1.5;
 for val=1:length(ths)
     th=ths(val);
-    mod_name = 'HydroPowerControl';
     MonteCarlo()
     disp('Results of dynamic plan')
-    %for val=1:length(ths)
-    %    hold on;
-    %   res=res_th{val};
-    ExamplePlot()
     res_th{val}=res;
+    figure
+    hold on;
+    disp('With threshold')
+    disp(th)
+    res=res_static;
+    ExamplePlot()
+    res=res_th{val};
+    ExamplePlot()
 end
 
 %%
@@ -47,3 +52,4 @@ sm=simdec(res(:,2),sc,color,legend,['\Sigma Revenue']);
 sm=simdec(res(:,1),sc,color,legend,['Wasted']);
 
 %ylim([0 10]);
+ set_param('HydroPowerControlDevel','AlgebraicLoopSolver','LineSearch')
