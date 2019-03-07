@@ -5,6 +5,9 @@ model(1) = model(1).setVariable('maint2',maint2);
 if strcmp(mod_name,'HydroPowerControl')
     model(1) = model(1).setVariable('th',th);
 end
+if strcmp(mod_name,'HydroPowerControlDevel')
+    model(1) = model(1).setVariable('th',th);
+end
 
 t = rain(:,1);
 res = zeros(2, rounds);
