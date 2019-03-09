@@ -1,6 +1,6 @@
 clear all;
 InitializeModel()
-%rounds=100;
+rounds=1000;
 
 mod_name = 'HydroPowerSheet';
 MonteCarlo()
@@ -13,7 +13,10 @@ res_static = res;
 mod_name = 'HydroPowerControl';
 
 res_th={};
-ths=0:0.5:1.5;
+%ths=1:1;
+ths=0:0;%0.02:.14;
+val=0;
+th=0;
 for val=1:length(ths)
     th=ths(val);
     MonteCarlo()

@@ -23,9 +23,13 @@ for n=1:rounds
 end
 test = parsim(model(1:rounds),'ShowSimulationManager','off', 'ShowProgress','off');
 
+%Create aggregated maintenance plan fo high level overview
+maint_plan=zeros(size(t,1)+1,1);
+
 for n=1:rounds
     res(1,n) = sum(test(n).yout{1}.Values.Data); %Flooded (minimize)
     res(2,n) = sum(test(n).yout{2}.Values.Data); %Revenue (maximize)
+    maint_plan = (maint_plan+test(n).yout{3}.Values.Data); %Maintenance plan (maximize)
 end
 
 res = res';

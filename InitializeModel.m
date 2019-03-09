@@ -1,7 +1,7 @@
-%% Initialize model
+    %% Initialize model
 % Number of simulation rounds
 % ROUGHLY: 10 = testing; 100 = preliminary; 1000 = results 
-rounds = 100;
+rounds = 1000;
 
 % Timeframe = 1 year
 t = [0:365-1]';
