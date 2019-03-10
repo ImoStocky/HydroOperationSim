@@ -5,9 +5,9 @@ model(1) = model(1).setVariable('maint2',maint2);
 if strcmp(mod_name,'HydroPowerControl')
     model(1) = model(1).setVariable('th',th);
 end
-if strcmp(mod_name,'HydroPowerControlDevel')
-    model(1) = model(1).setVariable('th',th);
-end
+% if strcmp(mod_name,'HydroPowerControlDevel')
+%     model(1) = model(1).setVariable('th',th);
+% end
 
 t = rain(:,1);
 res = zeros(2, rounds);
@@ -21,7 +21,7 @@ for n=1:rounds
     %res(1,n) = sum(test.yout{1}.Values.Data); %Flooded (minimize)
     %res(2,n) = sum(test.yout{2}.Values.Data); %Revenue (maximize)
 end
-test = parsim(model(1:rounds),'ShowSimulationManager','off', 'ShowProgress','off');
+test = parsim(model(1:rounds),'ShowSimulationManager','off', 'ShowProgress','on');
 
 %Create aggregated maintenance plan fo high level overview
 maint_plan=zeros(size(t,1)+1,1);
@@ -29,7 +29,9 @@ maint_plan=zeros(size(t,1)+1,1);
 for n=1:rounds
     res(1,n) = sum(test(n).yout{1}.Values.Data); %Flooded (minimize)
     res(2,n) = sum(test(n).yout{2}.Values.Data); %Revenue (maximize)
-    maint_plan = (maint_plan+test(n).yout{3}.Values.Data); %Maintenance plan (maximize)
+    if strcmp(mod_name,'HydroPowerControl')
+        maint_plan = (maint_plan+test(n).yout{3}.Values.Data); %Maintenance plan (maximize)
+    end
 end
 
 res = res';
