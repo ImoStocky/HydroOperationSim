@@ -1,58 +1,67 @@
 clear all;
-InitializeModel()
-rounds=1000;
 
-mod_name = 'HydroPowerSheet';
-MonteCarlo()
-disp('Results of static plan')
-figure;
-hold on;
-ExamplePlot()
-res_static = res;
+%DailyRain(.155*rain_par, 3+rain_int, 365);
+%gbm(0+p1, .20+p2, 'StartState', 40);
+ths=0:0.1:0.2;
+price_inc=[-0.1:0.1:0.1];
+price_vol=[0];
+rain_par=[0.75,1,1.25];
+rain_int=[-1,0,2];
 
-mod_name = 'HydroPowerControl';
-
+p2=0;
+res_static = {};
 res_th={};
-%ths=1:1;
-ths=0:0;%0.02:.14;
-val=0;
+plan={};
 th=0;
-for val=1:length(ths)
-    th=ths(val);
+
+for i=1:length(price_inc)
+    p1=price_inc(i);
+    
+    InitializeModel()
+    %rounds=10;
+    
+    mod_name = 'HydroPowerSheet';
     MonteCarlo()
-    disp('Results of dynamic plan')
-    res_th{val}=res;
-    figure
-    hold on;
-    disp('With threshold')
-    disp(th)
-    res=res_static;
-    ExamplePlot()
-    res=res_th{val};
-    ExamplePlot()
+    
+    res_static{i} = res;
+    
+    mod_name = 'HydroPowerControl';
+    MonteCarlo()
+    
+    res_th{i} = res;
+    plan{i} = maint_plan;
 end
 
-%%
-close all;
-%Classify simulation scenarios just for experiment
-by_rain = mean(sim_rain,1); %figure; histogram(by_rain);
-by_price = mean(sim_price,1); %figure; histogram(by_price);
+type='GBMDrift';
+variable=price_inc;
+save('Control_Drift','res_static','res_th','th','price_inc','price_vol','plan');
+helperPlots()
 
-t_rain=quantile(by_rain,[0.2,0.7]);
-t_price=quantile(by_price,[0.2,0.7]);
+price_vol=-0.1:0.1:0.1;
+price_inc=[0];
+p1=0;
+for i=1:length(price_vol)
+    p2=price_vol(i);
+    
+    InitializeModel()
+    %rounds=10;
+    
+    mod_name = 'HydroPowerSheet';
+    MonteCarlo()
+    
+    res_static{i} = res;
+    
+    mod_name = 'HydroPowerControl';
+    MonteCarlo()
+    
+    res_th{i} = res;
+    plan{i} = maint_plan;
+end
 
-%set bits ?
-c1 = int8(by_rain > t_rain(1)) + int8(by_rain > t_rain(2)); %0,1,2
-c2 = int8(by_price > t_price(1))*3 + int8(by_price > t_price(2))*3; 
-sc = c1+c2+1;
+type='GBMVolatillity';
+variable=price_vol;
+save('Control_Volatillity','res_static','res_th','th','price_inc','price_vol','plan');
+helperPlots()
 
-color=[0 .8 1; 0 .6 1; 0 .4 1; 1 .8 .4; 1 .6 .4; 1 .4 .4; 0 1 0;0 .7 0.2; 0 0.4 .4];
-legend={'low rain, low price', 'med rain, low price','high rain, low price',...
-    'low rain, med price', 'med rain, med price','high rain, med price',...
-    'low rain, hi price', 'med rain, hi price','high rain, hi price'};
-
-sm=simdec(res(:,2),sc,color,legend,['\Sigma Revenue']);
-sm=simdec(res(:,1),sc,color,legend,['Wasted']);
-
-%ylim([0 10]);
- set_param('HydroPowerControlDevel','AlgebraicLoopSolver','LineSearch')
+%last scenario decompostion default one 0 incl .3 volatillity
+decomposeSim();

@@ -1,4 +1,4 @@
-    %% Initialize model
+%% Initialize model
 % Number of simulation rounds
 % ROUGHLY: 10 = testing; 100 = preliminary; 1000 = results 
 rounds = 1000;
@@ -23,7 +23,7 @@ for x=1:rounds
 end
 
 % Create 1000 price realizations
-sde_price = gbm(0, .20, 'StartState', 40);
+sde_price = gbm(0+p1, .20+p2, 'StartState', 40);
 rng(0);
 sim_price = squeeze(sde_price.simBySolution(365-1, 'DeltaTime', 1/365,...
     'nTrials', rounds));

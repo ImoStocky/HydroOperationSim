@@ -51,3 +51,6 @@ Meanwhile learn about
 + Implementing flexibilities (this lecture & assignment 4)
 + Data analysis and visualization
 + State-of-the-Art in economic modeling with System Dynamics
+
+Matlab file
+main.m runs sensitivity analysis for drift and volatillity of prices.gi
