@@ -1,3 +1,10 @@
 /.idea/*
 /slprj/*
-*.asv*.asv
+*.asv
+*.slxc
+*.slx.*
+*.exe
+*.mat
+*.swp
+/extras/*
+*.[a-z]+~

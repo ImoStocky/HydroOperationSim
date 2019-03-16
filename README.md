@@ -52,5 +52,13 @@ Meanwhile learn about
 + Data analysis and visualization
 + State-of-the-Art in economic modeling with System Dynamics
 
-Matlab file
-main.m runs sensitivity analysis for drift and volatillity of prices.gi
+###### Results
+Focus of this project was simulink model and analysis of its behaviour.
+
+For test simulation runs adjust "rounds" variable in InitializeModel.m to lower values. 10
+
+For simulation output, main.m runs sensitivity analysis on mean increase of price and volatillity of price parameters.
+
+Report on results of this optimization and description of employed techniques can be found in "project\_report.pdf"
+
+
