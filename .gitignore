@@ -7,4 +7,4 @@
 *.mat
 *.swp
 /extras/*
-*.[a-z]+~
+*~
